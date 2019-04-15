@@ -1,0 +1,49 @@
+code/await Player(none) -> none do
+    var int x=0;
+    var int y=0;
+    var int key;
+    every key in KEY_PRESS do
+        if(key == KEY_UP) then
+            y=y+1;
+            emit GRAPHICS_DRAW_PIXEL(x,y);
+        end
+        if(key == KEY_DOWN) then
+            y=y-1;
+            emit GRAPHICS_DRAW_PIXEL(x,y);
+        end
+        if(key == KEY_LEFT) then
+            x=x-1;
+            emit GRAPHICS_DRAW_PIXEL(x,y);
+        end
+        if(key == KEY_RIGHT) then
+            x=x+1;
+            emit GRAPHICS_DRAW_PIXEL(x,y);
+        end
+        if(key == KEY_SPACE) then
+            emit GRAPHICS_SET_COLOR_NAME(COLOR_BLACK);
+            emit GRAPHICS_DRAW_PIXEL(x,y);
+            if(key == KEY_UP) then
+                y=y+1;
+                emit GRAPHICS_DRAW_PIXEL(x,y);
+            end
+            if(key == KEY_DOWN) then
+                y=y-1;
+                emit GRAPHICS_DRAW_PIXEL(x,y);
+            end
+            if(key == KEY_LEFT) then
+                x=x-1;
+                emit GRAPHICS_DRAW_PIXEL(x,y);
+            end
+            if(key == KEY_RIGHT) then
+                x=x+1;
+                emit GRAPHICS_DRAW_PIXEL(x,y);
+            end
+        emit GRAPHICS_SET_COLOR_NAME(COLOR_WHITE);
+        end
+    end
+
+
+end
+
+spawn Player();
+await FOREVER;
