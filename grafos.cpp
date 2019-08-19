@@ -1,12 +1,14 @@
 #include <iostream>
-#include <fstream>
 #include <stdio.h>
+#include <vector>
+#include <stdlib.h>
 using namespace std;
 
 int main(){
 	int n = 0;
 	int x,y,op = -1;
 	bool running = true;
+	vector<vector<int>> mat;
 
 	while (n < 1){
 			cout << "Digite o numero de vertices:" << endl;
@@ -18,13 +20,24 @@ int main(){
 			}
 	}
 
-	int mat[n+1][n+1] = {0};
+	
+	for(int i = 0;i<=n;i++){
+		vector<int> tmp;
+		for(int j=0;j<=n;j++){
+			tmp.push_back(0);
+		}
+		mat.push_back(tmp);
+	}
 
 	while (x > -1 || y > -1){
 		cout << "Digite as arestas:" << endl;
 		cin >> x >> y;
-		mat[x][y] = 1;
-		mat[y][x] = 1;
+		if(x > -1 && y >-1){
+			mat[x][y] = 1;
+			mat[y][x] = 1;
+		}
+		cin.clear();
+		fflush(stdin);
 	}
 	for(int i = 1;i<=n;i++){
 		for(int j=1;j<=n;j++){
@@ -52,6 +65,7 @@ int main(){
 		switch(op){
 			case 1:
 				{
+					mat.clear();
 				do{
 					cout << "Digite o numero de vertices:" << endl;
 					cin >> n;
@@ -62,13 +76,23 @@ int main(){
 					}
 				}while (n < 1);
 
-				mat[n+1][n+1] = {0};
+				for(int i = 0;i<=n;i++){
+					vector<int> tmp;
+					for(int j=0;j<=n;j++){
+						tmp.push_back(0);
+					}
+					mat.push_back(tmp);
+				}
 
 				do{
 					cout << "Digite as arestas:" << endl;
 					cin >> x >> y;
-					mat[x][y] = 1;
-					mat[y][x] = 1;
+					if(x > -1 && y >-1){
+						mat[x][y] = 1;
+						mat[y][x] = 1;
+					}
+					cin.clear();
+					fflush(stdin);
 				}while (x > -1 || y > -1);
 
 				break;
@@ -87,11 +111,17 @@ int main(){
 				}
 			case 3:
 				{
-					
+					FILE *f = fopen("savedata_grafo.bin","wb");
+					fwrite(&mat,sizeof(mat), 1 , f);
+					fclose(f);
 				break;
 				}
 			case 4:
 				{
+					mat.clear();
+					FILE *f = fopen("savedata_grafo.bin","rb");
+					fread(&mat,sizeof(mat), 1 , f);
+					fclose(f);
 					break;
 				}
 			default:
