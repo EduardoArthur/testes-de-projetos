@@ -112,7 +112,12 @@ int main(){
 			case 3:
 				{
 					FILE *f = fopen("savedata_grafo.bin","wb");
-					fwrite(&mat,sizeof(mat), 1 , f);
+					fwrite(&n,sizeof(int),1,f);
+					for(int i = 0;i<=n;i++){
+						for(int j=0;j<=n;j++){
+							fwrite(&mat[i][j],sizeof(int), 1 , f);
+						}
+					}
 					fclose(f);
 				break;
 				}
@@ -120,7 +125,12 @@ int main(){
 				{
 					mat.clear();
 					FILE *f = fopen("savedata_grafo.bin","rb");
-					fread(&mat,sizeof(mat), 1 , f);
+					fread(&n,sizeof(int),1,f);
+					for(int i = 0;i<=n;i++){
+						for(int j=0;j<=n;j++){
+							fread(&mat[i][j],sizeof(int), 1 , f);
+						}
+					}
 					fclose(f);
 					break;
 				}
