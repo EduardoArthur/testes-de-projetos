@@ -1,13 +1,59 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <string>
 #include <stdlib.h>
 using namespace std;
+
+/*
+vector<vector<int>> mat;
+
+void colore(int x){
+
+	cor[x]=0;
+	vector<int>fila;
+	fila.push_back(x);
+	int pos = 0;
+	while (pos < (int)fila.size()){
+		int atual = fila[pos];
+		pos++;
+		for(int i=0;i<n;i++){
+			if(mat[atual][i]){
+				if(cor[i] == -1){
+					cor[i] = 1 - cor[atual];
+					fila.push_back(i);
+				}
+			}
+		}
+	}
+	
+}
+
+
+bool bipartido(){
+	for(int i=0;i<n;i++){
+		if(cor[i] = -1){
+			colore(i);
+		}
+	}
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(mat[i][j]){
+				if(cor[i] == cor[j]){
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+*/
 
 int main(){
 	int n = 0;
 	int x,y,op = -1;
 	bool running = true;
+	string arquivo;
 	vector<vector<int>> mat;
 
 	while (n < 1){
@@ -32,7 +78,7 @@ int main(){
 	while (x > -1 || y > -1){
 		cout << "Digite as arestas:" << endl;
 		cin >> x >> y;
-		if(x > -1 && y >-1){
+		if(x > -1 && y > -1  && x <= n && y <= n){
 			mat[x][y] = 1;
 			mat[y][x] = 1;
 		}
@@ -87,7 +133,7 @@ int main(){
 				do{
 					cout << "Digite as arestas:" << endl;
 					cin >> x >> y;
-					if(x > -1 && y >-1){
+					if(x > -1 && y > -1 && x <= n && y <= n){
 						mat[x][y] = 1;
 						mat[y][x] = 1;
 					}
@@ -111,7 +157,19 @@ int main(){
 				}
 			case 3:
 				{
-					FILE *f = fopen("savedata_grafo.bin","wb");
+					cout << "digite o nome do grafo a ser salvo" << endl;
+					cin >> arquivo;
+					cin.clear();
+					fflush(stdin);
+					//FILE *s = fopen("grafosdata.txt","w");
+					//fprintf(s,"%s \n",arquivo);
+					//fclose(s);
+					arquivo = arquivo + ".bin";
+					char arq[arquivo.length()+1];
+					for (int i = 0; i < sizeof(arq); i++) { 
+						arq[i] = arquivo[i];  
+					} 
+					FILE *f = fopen(arq,"wb");
 					fwrite(&n,sizeof(int),1,f);
 					for(int i = 0;i<=n;i++){
 						for(int j=0;j<=n;j++){
@@ -124,7 +182,24 @@ int main(){
 			case 4:
 				{
 					mat.clear();
-					FILE *f = fopen("savedata_grafo.bin","rb");
+					//string salvos;
+					//cout << "Grafos salvos:" << endl;
+					//FILE *s = fopen("grafosdata.txt","r");
+					//while(fscanf(s, "%s \n",salvos) != EOF){
+					//	cout << salvos << endl;
+					//}
+					//fclose(s);
+
+					cout << "digite o nome do grafo a ser carregado" << endl;
+					cin >> arquivo;
+					cin.clear();
+					fflush(stdin);
+					arquivo = arquivo + ".bin";
+					char arq[arquivo.length()+1];
+					for (int i = 0; i < sizeof(arq); i++) { 
+						arq[i] = arquivo[i];  
+					} 
+					FILE *f = fopen(arq,"rb");
 					fread(&n,sizeof(int),1,f);
 					for(int i = 0;i<=n;i++){
 						for(int j=0;j<=n;j++){
