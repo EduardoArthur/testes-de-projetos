@@ -8,7 +8,7 @@ int cor[1010], vis[1010], C[1010];
 
 
 //Cria matriz
-int Fill_Matriz(int n){
+int Cria_Matriz(int n){
     int x,y;
     bool verificado = false;
     memset(Mat,0,sizeof(Mat));
@@ -89,10 +89,8 @@ int Read_File(string filename){
 void colore(int x){ 
 	
 	cor[x] = 0; 
-	
 	vector<int> fila; 
 	fila.push_back(x); 
-	
 	int pos = 0; 
 	
 	while(pos < (int)fila.size()){ 
@@ -127,7 +125,6 @@ bool checa_bipartido(){
             }
 		}
 	}
-	
 	return true; 
 }
 
@@ -611,7 +608,7 @@ int main(void){
 							cout << "O numero de vertices deve ser maior que zero" << endl;
 						}
 					}while (n < 1);
-					Fill_Matriz(n);
+					Cria_Matriz(n);
 					ok = true;
 					break;
 						
