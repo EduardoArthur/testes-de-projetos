@@ -1,13 +1,10 @@
 #include <bits/stdc++.h>
-
-#define MAXN 1010
-
 using namespace std;
 
-int Mat[MAXN][MAXN],Mat_nova[MAXN][MAXN];
+int Mat[1010][1010],Mat_nova[1010][1010];
 int tam_f=0,n,numv=0,k=0;
 vector<vector<int> > F;
-int cor[MAXN], vis[MAXN], C[MAXN]; 
+int cor[1010], vis[1010], C[1010]; 
 
 
 //Cria matriz
