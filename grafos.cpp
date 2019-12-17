@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int Mat[1010][1010],Mat_nova[1010][1010];
+int Mat[1010][1010],Mat_nova[1010][1010],Mat_cor[1010][1010];
 int tam_f=0,n,numv=0,k=0;
 vector<vector<int> > F;
 int cor[1010], vis[1010], C[1010]; 
@@ -374,7 +374,7 @@ int escolha_grafo(){
 						fflush(stdin);
                         while(!ok){   
                             if (k < 3){
-                                cout << "O tamanho tem que ser maior ou igual a 3!" << endl;
+                                cout << "O tamanho tem que ser maior ou igual a 3" << endl;
                                 cout << "Digite um tamanho valido" << endl;
                                 cin >> k;
                                 cin.clear();
@@ -567,6 +567,34 @@ int Call_Mycielsky(){
 	}
 }
 
+//Guloso
+
+int Coloracao_gulosa(int n){
+	int x = 2;
+	int contemp = 0;
+	for(int i = 0;i < n;i++){
+		if(cor[i] == -1){       
+			colore(i);         
+		}
+	}
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(Mat[i][j]){
+			    if(cor[i] == cor[j]){
+					x++;
+					contemp++;
+				} 
+            }
+		}
+	}
+	int cham = (contemp/2);
+	if(x - cham > n){
+		return n;
+	}else{
+		return x - cham;
+	}
+}
+
 
 
 // Main
@@ -581,7 +609,7 @@ int main(void){
 	
 	while(running){
 		op = 0;
-		while(op < 1 || op > 10){
+		while(op < 1 || op > 11){
 		cout << "Escolha o numero referente a opcao desejada" << endl;
 		cout << "1  -  Preencher a Matriz" << endl;
 		cout << "2  -  Imprimir Matriz" << endl;
@@ -592,7 +620,8 @@ int main(void){
 		cout << "7  -  Descobrir se eh conexo" << endl;
 		cout << "8  -  Arvore Geradora" << endl;
 		cout << "9  -  Grafo de Mycielsky" << endl;
-		cout << "10 -  Encerrar" << endl;
+		cout << "10 -  Coloracao gulosa" << endl;
+        cout << "11 -  Encerrar" << endl;
 		cin >> op;
 		cin.clear();
 		fflush(stdin);
@@ -689,8 +718,15 @@ int main(void){
 						
 						Call_Mycielsky();
 						break;
+                case 10:
+                        if(ok){
+							cout << "O grafo pode ser pintado por no minimo " << Coloracao_gulosa(n) << " cores" << endl;
+                        }else{
+                            cout << "Nao existe uma matriz preenchida" << endl;
+                        }
+                        break;
 
-				case 10: 
+				case 11: 
 						running = false;
 						break;						
 		}
